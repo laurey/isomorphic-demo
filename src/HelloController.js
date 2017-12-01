@@ -30,7 +30,7 @@ export default class HelloController extends Controller {
 
   index(application, request, reply, callback) {
     this.context.cookie.set('random', '_' + (Math.floor(Math.random() * 1000) + 1), { path: '/' });
-    this.context.data = { random: Math.floor(Math.random() * 1000) + 1 };
+    this.context.data = {random: Math.floor(Math.random() * 1000) + 1};
     callback(null);
   }
 
@@ -51,7 +51,6 @@ export default class HelloController extends Controller {
   }
 
   attach(el) {
-    console.log(this.context.data.random);
     this.clickHandler = el.addEventListener('click', onClick, false);
   }
 

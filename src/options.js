@@ -7,27 +7,27 @@ const server = new Hapi.Server({
     request: ['error']
   }
 });
+
 server.connection({
   host: 'localhost',
-  port: 8000
+  port: 8888
 });
 
 const APP_FILE_PATH = '/application.js';
+
 server.route({
   method: 'GET',
   path: APP_FILE_PATH,
   handler: (request, reply) => {
-    reply.file('dist/build/application.js');
+    return reply.file('dist/build/application.js');
   }
 });
 
 server.route({
   method: 'GET',
   path: '/templates/{template*}',
-  handler: {
-    file: (request) => {
-      return path.join('dist', request.params.template);
-    }
+  handler: (request, reply) => {
+      return reply.file(path.join('dist', request.params.template));
   }
 });
 

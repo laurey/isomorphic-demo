@@ -1,4 +1,5 @@
 import cookieFactory from './cookie';
+import Hoek from 'hoek';
 
 export default class Application {
 
@@ -39,7 +40,7 @@ export default class Application {
                 return reply(err);
               }
 
-              reply(html);
+              return reply(html);
             });
           });
         });
@@ -48,7 +49,25 @@ export default class Application {
   }
 
   start() {
-    this.options.server.start();
-  }
+    let server = this.options.server
 
+    server.register([require('vision'), require('inert')], (err) => {
+        Hoek.assert(!err, err);
+        server.views({
+            engines: {
+                html: require('handlebars')
+            }
+        });
+
+        if (err) throw err;
+
+        server.start((err) => {
+            if (err) {
+                throw err;
+            }
+
+            console.log(`Server running at: ${server.info.uri}`);
+        });
+    });
+  }
 }

@@ -19,6 +19,10 @@ export default function (application) {
     return this;
   }
 
+  reply.response = function () {
+    return this;
+  }
+
   return reply;
 
 }

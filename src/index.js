@@ -4,7 +4,7 @@ import HomeController from './HomeController';
 import nunjucks from 'nunjucks';
 import options from './options';
 
-nunjucks.configure(options.nunjucks);
+nunjucks.configure(options.nunjucks, { autoescape: false });
 
 const application = new Application({
   '/hello/{name*}': HelloController,
